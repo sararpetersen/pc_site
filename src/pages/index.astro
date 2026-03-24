@@ -1,15 +1,102 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import Button from '../components/Button.astro';
-import Link from '../components/Link.astro';
-import { Image } from 'astro:assets';
-import thumbsup from "../assets/images/thumbsup.png";
 ---
-<MainLayout title="Titel">
-	<article>
-		<h1>Index overskrift</h1>
-		<Button>Klik!</Button>
-		<p>Link til <Link href="https://www.kea.dk" target="_blank">En anden side</Link></p>
-		<Image src={thumbsup} alt=""></Image>
-	</article>
+
+<MainLayout title="Computere · Revamped">
+  <article id="top" class="space-y-16 md:space-y-20">
+    <section id="intro" class="animate-up grid gap-8 rounded-3xl border border-slate-800 bg-slate-900/50 p-7 md:grid-cols-[1.1fr_0.9fr] md:p-10">
+      <div class="space-y-5">
+        <p class="text-sm font-medium uppercase tracking-[0.18em] text-slate-400">Et site om computeren</p>
+        <h1 class="text-4xl font-bold leading-tight text-white md:text-5xl">Computere fra historie til hverdag</h1>
+        <p class="max-w-prose text-slate-300">Udforsk historien, teknologien og hverdagsbrugen af computere samlet i én tydelig introduktion.</p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/min_computer" class="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-200">
+            Gå til Min computer
+          </a>
+          <a
+            href="/galleri"
+            class="rounded-xl border border-slate-700 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-slate-500 hover:text-white"
+          >
+            Se galleri
+          </a>
+        </div>
+      </div>
+
+      <img src="/images/computer-cutout.webp" alt="MacBook computer" class="w-full p-6 object-contain" />
+    </section>
+
+    <section id="hjemmet" class="animate-up delay-1 grid gap-8 md:grid-cols-2 md:items-start">
+      <div class="space-y-4">
+        <h2 class="text-2xl font-semibold text-white md:text-3xl">Computere i hjemmet</h2>
+        <p class="text-slate-300">
+          Ni ud af ti familier ejer i dag en eller flere smartphones, og næsten seks ud af ti har en tablet. Den personlige computer er stadig den
+          mest udbredte enhed i hjemmet.
+        </p>
+        <p class="text-slate-400">
+          Det gør computeren til et naturligt udgangspunkt for alt fra skole og arbejde til kreative projekter og underholdning.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-6">
+        <h3 class="text-sm font-medium uppercase tracking-[0.16em] text-slate-400">Hvorfor denne revamp?</h3>
+        <ul class="mt-4 space-y-3 text-slate-300">
+          <li>• Klarere informationshierarki</li>
+          <li>• Stærkere kontrast og læsbarhed</li>
+          <li>• Moderne sektioner med tydelige call-to-actions</li>
+          <li>• Mobilvenlig struktur fra starten</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="animate-up delay-2 grid gap-6 md:grid-cols-[0.9fr_1.1fr] md:items-center">
+      <img src="/images/computer-old.webp" alt="Gamle computere" class="w-full rounded-2xl border border-slate-800 object-cover" />
+      <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-6">
+        <h2 class="text-2xl font-semibold text-white">Udforsk siderne</h2>
+        <ul class="mt-4 space-y-3 text-slate-300">
+          <li><a href="/min_computer" class="transition hover:text-white">→ Min computer</a></li>
+          <li><a href="/operativsystemer" class="transition hover:text-white">→ Operativsystemer</a></li>
+          <li><a href="/komponenter" class="transition hover:text-white">→ Komponenter</a></li>
+          <li><a href="/galleri" class="transition hover:text-white">→ Galleri</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="tal" class="animate-up delay-3 rounded-3xl border border-slate-800 bg-slate-900/50 p-7 md:p-10">
+      <h2 class="text-2xl font-semibold text-white md:text-3xl">Nøgletal</h2>
+      <p class="mt-2 text-slate-400">Fordeling af digitale enheder i danske hjem (eksempeldata fra det oprindelige site).</p>
+
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        <div class="rounded-xl border border-slate-800 bg-slate-950 p-5">
+          <div class="mb-2 flex items-center justify-between text-sm text-slate-300">
+            <span>Personlig computer</span><span>94%</span>
+          </div>
+          <div class="h-2 rounded-full bg-slate-800"><div class="h-2 w-[94%] rounded-full bg-white"></div></div>
+        </div>
+        <div class="rounded-xl border border-slate-800 bg-slate-950 p-5">
+          <div class="mb-2 flex items-center justify-between text-sm text-slate-300">
+            <span>Smartphone</span><span>93%</span>
+          </div>
+          <div class="h-2 rounded-full bg-slate-800"><div class="h-2 w-[93%] rounded-full bg-white"></div></div>
+        </div>
+        <div class="rounded-xl border border-slate-800 bg-slate-950 p-5">
+          <div class="mb-2 flex items-center justify-between text-sm text-slate-300">
+            <span>Tablet</span><span>56%</span>
+          </div>
+          <div class="h-2 rounded-full bg-slate-800"><div class="h-2 w-[56%] rounded-full bg-white"></div></div>
+        </div>
+        <div class="rounded-xl border border-slate-800 bg-slate-950 p-5">
+          <div class="mb-2 flex items-center justify-between text-sm text-slate-300">
+            <span>Windows som primært OS</span><span>40%</span>
+          </div>
+          <div class="h-2 rounded-full bg-slate-800"><div class="h-2 w-[40%] rounded-full bg-white"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="om" class="animate-fade-in rounded-2xl border border-slate-800 bg-slate-900/40 p-6 md:p-8">
+      <p class="text-slate-300">
+        En opdateret, moderne version af det oprindelige site med fokus på overblik, læsbarhed og de vigtigste facts om computere i hjemmet.
+      </p>
+    </section>
+  </article>
 </MainLayout>
