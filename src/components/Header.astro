@@ -1,5 +1,6 @@
 ---
 const pathname = Astro.url.pathname;
+const navId = "site-navigation";
 const navLinks = [
   { href: "/", label: "Forside" },
   { href: "/min_computer", label: "Min computer" },
@@ -10,23 +11,67 @@ const navLinks = [
 ---
 
 <div class="fixed inset-x-0 top-0 z-50 border-b border-slate-800/80 bg-slate-950/90 backdrop-blur">
-  <div class="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-3 md:flex-row md:items-center md:justify-between md:px-8 md:py-4">
-    <a href="/" class="inline-flex items-center gap-2 text-lg font-semibold tracking-tight text-white">
-      <img src="/favicon.svg?v=2" alt="Computere logo" class="h-7 w-7 object-contain" />
-      <span>Computere</span>
-    </a>
+  <div class="mx-auto max-w-6xl px-6 py-3 md:px-8 md:py-4">
+    <div class="flex items-center justify-between">
+      <a href="/" class="inline-flex items-center gap-2 text-lg font-semibold tracking-tight text-white">
+        <img src="/favicon.svg?v=2" alt="Computere logo" class="h-7 w-7 object-contain" />
+        <span>Computere</span>
+      </a>
 
-    <nav aria-label="Hovednavigation">
-      <ul class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-300 md:justify-end">
+      <button
+        id="mobile-menu-toggle"
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-md text-slate-200 transition hover:bg-slate-800/80 hover:text-white md:hidden"
+        aria-controls={navId}
+        aria-expanded="false"
+        aria-label="Åbn navigation"
+      >
+        <svg
+          id="menu-icon-open"
+          class="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg
+          id="menu-icon-close"
+          class="hidden h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <nav id={navId} aria-label="Hovednavigation" class="mt-3 hidden md:mt-0 md:block">
+      <ul class="flex flex-col gap-1 text-sm text-slate-300 md:flex-row md:flex-wrap md:items-center md:justify-end md:gap-x-4 md:gap-y-2">
         {
           navLinks.map((link) => {
             const isActive = pathname === link.href || pathname === `${link.href}/`;
             return (
               <li>
                 <a
-                  href={link.href}
+                  data-nav-link
                   aria-current={isActive ? "page" : undefined}
-                  class:list={["rounded-md px-2 py-1 transition", isActive ? "text-white underline underline-offset-4" : "hover:text-white"]}
+                  class:list={[
+                    "block rounded-md px-2 py-2 transition md:py-1",
+                    isActive ? "text-white underline underline-offset-4" : "hover:text-white",
+                  ]}
                 >
                   {link.label}
                 </a>
@@ -38,3 +83,47 @@ const navLinks = [
     </nav>
   </div>
 </div>
+
+<script is:inline>
+  const nav = document.getElementById("site-navigation");
+  const toggle = document.getElementById("mobile-menu-toggle");
+
+  if (nav && toggle) {
+    const links = nav.querySelectorAll("a[data-nav-link]");
+    const openIcon = document.getElementById("menu-icon-open");
+    const closeIcon = document.getElementById("menu-icon-close");
+
+    const setExpanded = (expanded) => {
+      nav.classList.toggle("hidden", !expanded);
+      toggle.setAttribute("aria-expanded", String(expanded));
+      toggle.setAttribute("aria-label", expanded ? "Luk navigation" : "Åbn navigation");
+      openIcon?.classList.toggle("hidden", expanded);
+      closeIcon?.classList.toggle("hidden", !expanded);
+    };
+
+    toggle.addEventListener("click", () => {
+      const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+      setExpanded(!isExpanded);
+    });
+
+    links.forEach((link) => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth < 768) {
+          setExpanded(false);
+        }
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 768) {
+        nav.classList.remove("hidden");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Åbn navigation");
+        openIcon?.classList.remove("hidden");
+        closeIcon?.classList.add("hidden");
+      } else {
+        nav.classList.add("hidden");
+      }
+    });
+  }
+</script>
